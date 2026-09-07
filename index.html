@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COMASA - Madurez</title>
+    <link rel="manifest" href="manifest.json">
+    <!-- Ícono para la pestaña del navegador -->
+    <link rel="icon" type="image/png" href="icon-192x192.png">
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0d4a22">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="COMASA - Madurez">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div class="top-bar">
+        COMASA - Departamento de Campo
+    </div>
+    
+    <div id="capture-area">
+        <div class="container">
+            <!-- Encabezado con Logo -->
+            <div class="title-card">
+                <img src="LOGO.png" alt="COMASA Logo">
+                <h1>MUESTREO DE MADUREZ - 2026</h1>
+            </div>
+
+            <!-- Datos Generales -->
+            <div class="form-group">
+                <i class="far fa-user"></i>
+                <label>Productor:</label>
+                <input type="text" id="productor" class="nav-input">
+            </div>
+            <div class="form-group">
+                <i class="fas fa-home"></i>
+                <label>Finca:</label>
+                <input type="text" id="finca" class="nav-input">
+            </div>
+
+            <div class="dates-row">
+                <div class="date-field">
+                    <div class="date-field-header">
+                        <i class="far fa-calendar-alt"></i>
+                        <label>Fecha Siembra:</label>
+                    </div>
+                    <input type="date" id="fecha-siembra" class="nav-input">
+                </div>
+                <div class="date-field">
+                    <div class="date-field-header">
+                        <i class="far fa-calendar-alt"></i>
+                        <label>Fecha Muestra:</label>
+                    </div>
+                    <input type="date" id="fecha-muestra" class="nav-input">
+                </div>
+            </div>
+
+            <!-- Tabla de Muestras -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="25%">Colores</th>
+                        <th width="15%">Muestra 1<small>(Caps/m)</small></th>
+                        <th width="15%">Muestra 2<small>(Caps/m)</small></th>
+                        <th width="15%">Suma</th>
+                        <th width="15%">Promedio</th>
+                        <th width="15%">Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="c-negras">Negras</td>
+                        <td><input type="number" id="m1-negras" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td><input type="number" id="m2-negras" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td id="s-negras" class="readonly-cell"></td>
+                        <td id="p-negras" class="readonly-cell"></td>
+                        <td id="por-negras" class="readonly-cell"></td>
+                    </tr>
+                    <tr>
+                        <td class="c-cafes">Cafés</td>
+                        <td><input type="number" id="m1-cafes" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td><input type="number" id="m2-cafes" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td id="s-cafes" class="readonly-cell"></td>
+                        <td id="p-cafes" class="readonly-cell"></td>
+                        <td id="por-cafes" class="readonly-cell"></td>
+                    </tr>
+                    <tr>
+                        <td class="c-naranjas">Naranjas</td>
+                        <td><input type="number" id="m1-naranjas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td><input type="number" id="m2-naranjas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td id="s-naranjas" class="readonly-cell"></td>
+                        <td id="p-naranjas" class="readonly-cell"></td>
+                        <td id="por-naranjas" class="readonly-cell"></td>
+                    </tr>
+                    <tr>
+                        <td class="c-amarillas">Amarillas</td>
+                        <td><input type="number" id="m1-amarillas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td><input type="number" id="m2-amarillas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td id="s-amarillas" class="readonly-cell"></td>
+                        <td id="p-amarillas" class="readonly-cell"></td>
+                        <td id="por-amarillas" class="readonly-cell"></td>
+                    </tr>
+                    <tr>
+                        <td class="c-blancas">Blancas</td>
+                        <td><input type="number" id="m1-blancas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td><input type="number" id="m2-blancas" inputmode="numeric" pattern="[0-9]*" class="nav-input"></td>
+                        <td id="s-blancas" class="readonly-cell"></td>
+                        <td id="p-blancas" class="readonly-cell"></td>
+                        <td id="por-blancas" class="readonly-cell"></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>TOTAL:</td>
+                        <td id="t-m1"></td>
+                        <td id="t-m2"></td>
+                        <td id="t-suma"></td>
+                        <td id="t-prom"></td>
+                        <td id="t-por"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Otros Factores -->
+            <div class="section-header">
+                <i class="fas fa-list-ul"></i>
+                <h2>Otros Factores</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="factors-grid">
+                <div class="factor-item">
+                    <label>Metros Lineales:</label>
+                    <select id="metros" class="nav-input">
+                        <!-- El 'value' se mantiene sin comas para el cálculo, el texto con comas para la vista -->
+                        <option value="7683" selected>7,683</option>
+                        <option value="7903">7,903</option>
+                        <option value="8135">8,135</option>
+                        <option value="8332">8,332</option>
+                    </select>
+                </div>
+                <div class="factor-item">
+                    <label>Reducción QQ/Mz:</label>
+                    <select id="reduccion" class="nav-input">
+                        <option value="8" selected>8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                <div class="factor-item">
+                    <label>No.Caps/QQ:</label>
+                    <!-- Cambiamos type="number" por type="text" y agregamos la coma al value por defecto -->
+                    <input type="text" id="caps" value="30,600" inputmode="numeric" class="nav-input">
+                </div>
+            </div>
+
+            <div class="nota-container">
+                <label>Nota:</label>
+                <textarea id="nota" rows="2" class="nav-input"></textarea>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-grid">
+                <div class="result-item">
+                    <label>Madurez</label>
+                    <div id="res-madurez" class="result-value"></div>
+                </div>
+                <div class="result-item">
+                    <label>Porcentaje de<br>Negras y Cafés</label>
+                    <div id="res-porcentaje" class="result-value"></div>
+                </div>
+                <div class="result-item">
+                    <label>DDS</label>
+                    <div id="res-dds" class="result-value"></div>
+                </div>
+                <div class="result-item">
+                    <label>Rendimiento</label>
+                    <div id="res-rendimiento" class="result-value"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="fab-container">
+        <button class="btn btn-calc" onclick="calcular()">
+            <i class="fas fa-calculator"></i> CALCULAR
+        </button>
+        <button class="btn" onclick="limpiar()">
+            <i class="fas fa-broom"></i> LIMPIAR
+        </button>
+        <button class="btn" onclick="compartir()" id="btn-share" style="display: none; background-color: #25D366; color: white; border-color: #25D366;">
+            <i class="fab fa-whatsapp"></i> ENVIAR
+        </button>
+        <button class="btn" onclick="salir()">
+            <i class="fas fa-sign-out-alt"></i> SALIR
+        </button>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
