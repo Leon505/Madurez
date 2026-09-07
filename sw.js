@@ -1,6 +1,6 @@
 // ¡REGLA DE ORO!: Cada vez que modifiques tu app en GitHub, 
 // debes cambiar este número (v2, v3, v4...) para forzar la actualización.
-const CACHE_NAME = 'comasa-madurez-v1'; 
+const CACHE_NAME = 'comasa-madurez-v2'; 
 
 const urlsToCache = [
   './',
