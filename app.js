@@ -246,6 +246,8 @@ function compartir() {
         
         canvas.toBlob(function(blob) {
             const prod = document.getElementById('productor').value || 'Productor';
+            // NUEVO: Capturamos el nombre de la finca (o ponemos "No especificada" si está vacío)
+            const finca = document.getElementById('finca').value || 'finca';
             const fileName = `Muestreo_Madurez_${prod}.png`;
             const file = new File([blob], fileName, { type: "image/png" });
             
@@ -253,7 +255,7 @@ function compartir() {
                 navigator.share({
                     files: [file],
                     title: 'Resultado Muestreo Madurez',
-                    text: `Resultados Muestreo Madurez COMASA - Productor: ${prod}`
+                    text: `Resultados Muestreo Madurez COMASA - Productor: ${prod} - Finca: ${finca}`
                 })
                 .then(() => console.log('Compartido con éxito.'))
                 .catch((error) => console.log('Error al compartir', error));
