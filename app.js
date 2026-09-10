@@ -274,9 +274,36 @@ function compartir() {
     });
 }
 
+// Función principal que se llama al tocar tu botón "Salir" original
 function salir() {
-    if (confirm("¿Seguro que desea salir?")) {
-        window.close();
-        window.location.href = "about:blank";
+    // En lugar del 'confirm' de la página, mostramos nuestra ventana personalizada
+    const modalSalir = document.getElementById('modal-salir');
+    if (modalSalir) {
+        modalSalir.style.display = 'flex';
     }
 }
+
+// Escuchadores de eventos para los botones DENTRO del modal
+document.addEventListener('DOMContentLoaded', function() {
+    const btnCancelar = document.getElementById('btn-cancelar-salir');
+    const btnConfirmar = document.getElementById('btn-confirmar-salir');
+    const modalSalir = document.getElementById('modal-salir');
+
+    // Si presionan "No, quedarme"
+    if (btnCancelar) {
+        btnCancelar.addEventListener('click', function() {
+            modalSalir.style.display = 'none'; // Solo oculta la ventana
+        });
+    }
+
+    // Si presionan "Sí, salir"
+    if (btnConfirmar) {
+        btnConfirmar.addEventListener('click', function() {
+            modalSalir.style.display = 'none';
+            
+            // Ejecutamos tu código original para salir
+            window.close(); 
+            window.location.href = "about:blank"; 
+        });
+    }
+});
