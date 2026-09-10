@@ -469,3 +469,66 @@ input[type="number"]::-webkit-inner-spin-button {
     from {bottom: 80px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+/* Estilos para el Modal Personalizado */
+.modal-overlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 85%;
+    max-width: 350px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.modal-title {
+    color: #0d4a22; /* Verde COMASA */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.modal-text {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-confirm {
+    background-color: #0d4a22; /* Verde COMASA */
+    color: white;
+}
