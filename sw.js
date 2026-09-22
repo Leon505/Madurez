@@ -1,6 +1,6 @@
 // ¡REGLA DE ORO!: Cada vez que modifiques tu app en GitHub, 
-// debes cambiar este número (v2, v3, v4...) para forzar la actualización.
-const CACHE_NAME = 'comasa-madurez-v4'; 
+// AUMENTA LA VERSIÓN (ej. v6) para forzar a tu celular a reinstalar el Service Worker
+const CACHE_NAME = 'comasa-madurez-v6'; 
 
 const urlsToCache = [
   './',
@@ -10,30 +10,34 @@ const urlsToCache = [
   './manifest.json',
   './icon-192x192.png',
   './icon-512x512.png',
-  './LOGO.png',
+  './logo.png', // Debe estar exactamente igual que en tu repositorio
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
 ];
 
-// 1. Instalar y forzar que tome el control inmediatamente (sin esperar a que cierren la app)
+// 1. Instalación blindada: guarda archivo por archivo para evitar que un error rompa todo
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of urlsToCache) {
+        try {
+          await cache.add(url);
+        } catch (err) {
+          console.error('Error guardando en caché:', url, err);
+        }
+      }
+    })
   );
 });
 
-// 2. Activar el nuevo Service Worker y ELIMINAR la memoria vieja
+// 2. Limpieza de caché antiguo
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('Borrando caché antiguo:', cache);
             return caches.delete(cache);
           }
         })
@@ -42,12 +46,20 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 3. Estrategia: "Caché primero, luego red" (Garantiza el funcionamiento 100% offline)
+// 3. Estrategia Offline (si no hay red, entrega el archivo de la memoria)
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      
+      return fetch(event.request).catch(() => {
+        // Si no hay internet y se intenta navegar a la app, entrega index.html guardado
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html') || caches.match('./');
+        }
+      });
+    })
   );
 });
