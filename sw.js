@@ -1,6 +1,6 @@
 // ¡REGLA DE ORO!: Cada vez que modifiques tu app en GitHub, 
 // AUMENTA LA VERSIÓN (ej. v6) para forzar a tu celular a reinstalar el Service Worker
-const CACHE_NAME = 'comasa-madurez-v6'; 
+const CACHE_NAME = 'comasa-madurez-v7'; 
 
 const urlsToCache = [
   './',
