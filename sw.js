@@ -10,7 +10,7 @@ const urlsToCache = [
   './manifest.json',
   './icon-192x192.png',
   './icon-512x512.png',
-  './logo.png', // Debe estar exactamente igual que en tu repositorio
+  './LOGO.png', // Debe estar exactamente igual que en tu repositorio
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
 ];
